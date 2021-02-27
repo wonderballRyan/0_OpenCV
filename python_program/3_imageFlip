@@ -1,0 +1,126 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# 读取图像文件，并将BGR格式转化为RGB格式
+def read_this(image_file, gray_scale=False):
+    image_src = cv2.imread(image_file)
+    if gray_scale:
+        image_rgb = cv2.cvtColor(image_src, cv2.COLOR_BGR2GRAY)
+    else:
+        image_rgb = cv2.cvtColor(image_src, cv2.COLOR_BGR2RGB)
+    return image_rgb
+
+
+# 镜像图像函数
+def mirror_this(image_file, gray_scale=False, with_plot=False):
+    image_rgb = read_this(image_file=image_file, gray_scale=gray_scale)
+    image_mirror = np.fliplr(image_rgb)
+    if with_plot:
+        fig = plt.figure(figsize=(10, 20))
+        ax1 = fig.add_subplot(2, 2, 1)
+        ax1.axis("off")
+        ax1.title.set_text('Original')
+        ax2 = fig.add_subplot(2, 2, 2)
+        ax2.axis("off")
+        ax2.title.set_text("Mirrored")
+        if not gray_scale:
+            ax1.imshow(image_rgb)
+            ax2.imshow(image_mirror)
+            plt.show()
+        else:
+            ax1.imshow(image_rgb, cmap='gray')
+            ax2.imshow(image_mirror, cmap='gray')
+            plt.show()
+        return True
+    return image_mirror
+
+
+# 翻转矩阵函数
+def flip_this(image_file, gray_scale=False, with_plot=False):
+    image_rgb = read_this(image_file=image_file, gray_scale=gray_scale)
+    image_flip = np.flipud(image_rgb)
+    if with_plot:
+        fig = plt.figure(figsize=(10, 20))
+        ax1 = fig.add_subplot(2, 2, 1)
+        ax1.axis("off")
+        ax1.title.set_text("Original")
+        ax2 = fig.add_subplot(2, 2, 2)
+        ax2.axis("off")
+        ax2.title.set_text("Flipped")
+        if not gray_scale:
+            ax1.imshow(image_rgb)
+            ax2.imshow(image_flip)
+            plt.show()
+        else:
+            ax1.imshow(image_rgb, cmap='gray')
+            ax2.imshow(image_flip, cmap='gray')
+            plt.show()
+        return True
+    return image_flip
+
+
+class ImageOpsFromScratch(object):
+    def __init__(self, image_file):
+        self.image_file = image_file
+
+    def read_this(self, gray_scale=False):
+        image_src = cv2.imread(self.image_file)
+        if (gray_scale):
+            image_rgb = cv2.cvtColor(image_src, cv2.COLOR_BGR2GRAY)
+        else:
+            image_rgb = cv2.cvtColor(image_src, cv2.COLOR_BGR2RGB)
+        return image_rgb
+
+    def mirror_this(self, with_plot=False, gray_scale=False):
+        image_rgb = self.read_this(gray_scale=gray_scale)
+        image_mirror = np.fliplr(image_rgb)
+        if with_plot:
+            self.plot_it(orig_matrix=image_rgb, trans_matrix=image_mirror, head_text='Mirrored', gray_scale=gray_scale)
+            return None
+        return image_mirror
+
+    def flip_this(self, with_plot=False, gray_scale=False):
+        image_rgb = self.read_this(gray_scale=gray_scale)
+        image_flip = np.flipud(image_rgb)
+        if with_plot:
+            self.plot_it(orig_matrix=image_rgb, trans_matrix=image_flip, head_text='Flipped', gray_scale=gray_scale)
+            return None
+        return image_flip
+
+    def plot_it(self, orig_matrix, trans_matrix, head_text, gray_scale):
+        fig = plt.figure(figsize=(10, 20))
+        ax1 = fig.add_subplot(2, 2, 1)
+        ax1.axis("off")
+        ax1.title.set_text('Original')
+        ax2 = fig.add_subplot(2, 2, 2)
+        ax2.axis("off")
+        ax2.title.set_text(head_text)
+        if not gray_scale:
+            ax1.imshow(orig_matrix)
+            ax2.imshow(trans_matrix)
+            plt.show()
+        else:
+            ax1.imshow(orig_matrix, cmap='gray')
+            ax2.imshow(trans_matrix, cmap='gray')
+            plt.show()
+        return True
+
+
+if __name__ == "__main__":
+    # ---------------------------------【函数调用】-----------------------------------------------
+    # mirror_this(image_file="F:/python/images/1.jpg", with_plot=True)
+    # mirror_this(image_file="F:/python/images/1.jpg", gray_scale=True, with_plot=True)
+    # flip_this(image_file="F:/python/images/1.jpg", with_plot=True)
+    # flip_this(image_file="F:/python/images/1.jpg", gray_scale=True, with_plot=True)
+
+    # ---------------------------------【类调用】------------------------------------------------
+    imo = ImageOpsFromScratch(image_file='F:/python/images/1.jpg')
+    # Mirroring
+    imo.read_this()
+    imo.mirror_this(with_plot=True, gray_scale=True)
+
+    # Flipping
+    imo.read_this()
+    imo.flip_this(with_plot=True, gray_scale=True)
