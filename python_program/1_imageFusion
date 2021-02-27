@@ -1,0 +1,28 @@
+import cv2
+
+# 1 图像导入
+bg = cv2.imread('F:/python/images/1.jpg', cv2.IMREAD_COLOR)
+fg = cv2.imread('F:/python/images/2.jpg', cv2.IMREAD_COLOR)
+
+# 2 显示原始图大小
+print(bg.shape)
+print(fg.shape)
+
+# 3 调整图像大小
+dim = (400, 300)
+resized_bg = cv2.resize(bg, dim, interpolation=cv2.INTER_AREA)
+resized_fg = cv2.resize(fg, dim, interpolation=cv2.INTER_AREA)
+
+print(resized_bg.shape)
+print(resized_fg.shape)
+
+# 4 混合图像
+# addWeighted:图像源1，src1权重，图像源2，src2权重，伽玛
+blend = cv2.addWeighted(resized_bg, 0.5, resized_fg, 0.8, 0.0)
+cv2.imwrite('F:/python/images/3.jpg', blend)
+
+# 5 显示图片
+cv2.namedWindow('blend', cv2.WINDOW_AUTOSIZE)
+cv2.imshow('blend', blend)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
