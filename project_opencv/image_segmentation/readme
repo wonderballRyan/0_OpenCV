@@ -1,2 +1,5 @@
 1 meanShift_floodFill.cpp
   链接：Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析，https://blog.csdn.net/dcrmg/article/details/52705087
+2 thresholding.cpp
+  链接：图像处理——常用阈值分割方法及源码，
+  https://blog.csdn.net/fly108108/article/details/81104330?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=1328641.8018.16155136203845885&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
